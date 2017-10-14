@@ -9,6 +9,10 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *textLabel;
+@property (weak, nonatomic) IBOutlet UITextField *inputTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sliderLabel;
+@property (weak, nonatomic) IBOutlet UISlider *sliderValue;
 
 @end
 
@@ -16,14 +20,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)calculateSplitAmount:(UIButton *)sender {
+    [self.textLabel.text intValue];
+    float textLabelValue = [self.inputTextLabel.text floatValue];
+    float x = textLabelValue / self.sliderValue.value;
+    self.textLabel.text = [NSString stringWithFormat:@"$%.2f", x];
 }
 
+- (void)setupTextField
+{
+    self.inputTextLabel.keyboardType = UIKeyboardTypeNumberPad;
+    self.inputTextLabel.clearButtonMode = UITextFieldViewModeUnlessEditing;
+}
+
+- (IBAction)splitSlider:(UISlider *)sender {
+    int x = sender.value;
+    sender.value = x;
+    NSLog(@"%.0f", sender.value);
+    self.sliderLabel.text = [NSString stringWithFormat:@"%.0f PEOPLE", sender.value];
+}
 
 @end
